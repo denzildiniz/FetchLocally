@@ -11,12 +11,16 @@
 
     <!-- Input block to take user details  -->
 
+
     <div class="container">
         <h1>CRUD FORM</h1>
+        <div class="serverText">
+            
+        </div>
         <div class="row100">
             <div class="col">
                 <div class="inputBox">
-                    <input type="text" name="name" autocomplete="off" required id="">
+                    <input type="text" name="name" autocomplete="off" required id="nameId">
                     <span class="text">Name</span>
                     <span class="line"></span>
                 </div>
@@ -25,7 +29,7 @@
         <div class="row100">
             <div class="col">
                 <div class="inputBox">
-                    <input type="text" name="email" autocomplete="off" required id="">
+                    <input type="text" name="email" autocomplete="off" required id="emailId">
                     <span class="text">Email</span>
                     <span class="line"></span>
                 </div>
@@ -35,7 +39,7 @@
         <div class="row100">
             <div class="col">
                 <div class="inputBox">
-                    <input type="text" name="designation" autocomplete="off" required id="">
+                    <input type="text" name="designation" autocomplete="off" required id="desId">
                     <span class="text">Designation</span>
                     <span class="line"></span>
                 </div>
@@ -43,7 +47,7 @@
         </div>
         <div class="row100">
             <div class="col">
-                <input type="submit" value="submit">
+                <input type="submit" id="submit" value="submit">
             </div>
         </div>
         
@@ -51,16 +55,23 @@
 
     <!-- cards to display users  -->
 
-    <div class="box">
-        <div class="card">
-            
+
+    <section id="message">
+        <div class="box">
+            <div class="card">
+                <h3>name of user</h3>
+                <h4>email of the user </h4>
+                <span>designation</span>
+                <div class="icons">
+                     <a href="#" class="links">Edit</a>
+                     <a href="#" class="links">Delete</a>
+                </div>
+            </div>
         </div>
-        
-    </div>
+
+    </section>
 
     
-    
+   <script src="fetch.js"></script>
 </body>
 </html>
-
-<!-- name email designation -->
