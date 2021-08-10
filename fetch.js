@@ -10,6 +10,7 @@ const userName = document.getElementById('nameId');
 const userEmail = document.getElementById('emailId');
 const userDesignation = document.getElementById('desId');
 
+
 //initial values
 let userSelection = false;
 edit.style.display = 'none';
@@ -26,14 +27,13 @@ const showCard = async () => {
         const data = await response.json();
         const info = data.getEmp;
 
-        if(info.length<1){
+        if (info.length < 1) {
             message.innerHTML = `<h2>Currently the list is empty</h2>`
             return;
         }
-
-        const cards = info.map((card) =>{
-            const {_id,name,email,designation} = card;
-            return ` <div class="box">
+        const cards = info.map((card) => {
+            const { _id, name, email, designation } = card;
+            return `<div class="box">
                          <div class="card">
                              <h3>${name}</h3>
                              <h4>${email}</h4>
@@ -50,61 +50,60 @@ const showCard = async () => {
 
     } catch (error) {
         message.innerHTML = `<h4>something went wrong,, please try again later</h4>`
-        
     }
 }
+
 
 //Getting data from server
 showCard()
 
-//Adding function
-const postCard = async (e) =>{
+
+//Posting function
+const postCard = async (e) => {
     e.preventDefault();
     try {
-        const sendData = await fetch("http://localhost:2500/api/d1/sjApi",{
-            method:'POST',
-            headers:{
-                'content-type': 'application/json' 
+        const sendData = await fetch("http://localhost:2500/api/d1/sjApi", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: userName.value,
                 email: userEmail.value,
-                designation:userDesignation.value
+                designation: userDesignation.value
             })
         });
         const data = await sendData.json();
 
-        console.log(data.msg)
         serverText.classList.add('active');
         serverText.innerHTML = `<small>${data.msg}</small>`;
-        
+
         showCard();
         userName.value = '';
         userEmail.value = '';
         userDesignation.value = '';
-        
+
     } catch (error) {
         serverText.classList.add('active');
         serverText.innerHTML = `<small>${error.msg}</small>`;
     }
-    
-    setTimeout(()=>{
-        serverText.classList.remove('active');
-    },3000);
-    
 
+    setTimeout(() => {
+        serverText.classList.remove('active');
+    }, 3000);
 }
 
-//Posting data to server
-submit.addEventListener('click',postCard)
 
+//Posting data to server
+submit.addEventListener('click', postCard)
 
 
 //User decision
-const confirming = () =>{
+const confirming = () => {
     userSelection = confirm(`are you sure?`)
     return userSelection;
 }
+
 
 //Delete function
 const deleteOperation = async (e) => {
@@ -136,26 +135,68 @@ const deleteOperation = async (e) => {
 
         userSelection = false;
     }
+}
 
+
+//edit function
+const editData = async (id) => {
+    const editName = userName.value;
+    const editEmail = userEmail.value;
+    const editDes = userDesignation.value;
+    try {
+        const res = await fetch(`http://localhost:2500/api/d1/sjApi/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: editName,
+                email: editEmail,
+                designation: editDes
+            })
+        });
+
+        const data = await res.json();
+        console.log(data.msg)
+        serverText.classList.add('active');
+        serverText.innerHTML = `<small>${data.msg}</small>`;
+
+        showCard();
+        userName.value = '';
+        userEmail.value = '';
+        userDesignation.value = '';
+
+        edit.style.display = 'none';
+        pre.style.display = 'none';
+        submit.style.display = 'block';
+
+    } catch (error) {
+        serverText.classList.add('active');
+        serverText.innerHTML = `<small>${error.msg}</small>`;
+    }
+    setTimeout(() => {
+        serverText.classList.remove('active');
+    }, 3000);
 }
 
 
 //Filling single userData function
-const fillData = async (e)=>{
+const fillData = async (e) => {
     const id = e.target.dataset.id;
     try {
-        const res = await fetch(`http://localhost:2500/api/d1/sjApi/${id}`,{
-            method:'GET',
-            headers:{
-                'content-type':'application/json'
+        const res = await fetch(`http://localhost:2500/api/d1/sjApi/${id}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
             }
         })
-        const {singleEmp} = await res.json();
-        // console.log(singleEmp);
+        const { singleEmp } = await res.json();
         userName.value = singleEmp.name;
         userEmail.value = singleEmp.email;
         userDesignation.value = singleEmp.designation;
-        
+        // edit.addEventListener('click', function(){editData(id);})
+        edit.addEventListener('click', () => editData(id))
+
     } catch (error) {
         serverText.classList.add('active');
         serverText.innerHTML = `<small>${error.msg}</small>`;
@@ -169,20 +210,20 @@ const fillData = async (e)=>{
 //To determine EDIT or DELETE
 message.addEventListener('click', async (e) => {
     if (e.target.classList.contains('del-btn')) {
-       deleteOperation(e);
+        deleteOperation(e);
     }
 
     if (e.target.classList.contains('edit-btn')) {
         submit.style.display = 'none';
         edit.style.display = 'inline-block';
         pre.style.display = 'inline-block';
-        console.log("edit");
         // Single userData
         fillData(e);
     }
 })
 
 
+//reset
 const previous = () => {
     edit.style.display = 'none';
     pre.style.display = 'none';
@@ -191,4 +232,4 @@ const previous = () => {
 }
 
 
-pre.addEventListener('click' , previous)
+pre.addEventListener('click', previous)
