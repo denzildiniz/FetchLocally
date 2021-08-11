@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300&display=swap');
 
 /* font-family: 'Lemonada', cursive; */
 
@@ -6,7 +6,7 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    font-family: 'Lemonada', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 body{
@@ -118,6 +118,7 @@ input[type="submit"]{
     background: #00ccff;
     color: #000;
     font-size: 18px;
+    font-weight: 600;
     border:1px solid #00ccff ;
     border-radius: 2px;
     transition: 0.5s;
@@ -129,6 +130,7 @@ input[type="button"]{
     background: #0e1538;
     color: #00ccff;
     font-size: 18px;
+    font-weight: 600;
     border:1px solid #0e1538 ;
     border-radius: 2px;
     transition: 0.5s;
@@ -227,8 +229,9 @@ section{
     top: 22%;
     left: 8%;
     color: #00ccff;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
@@ -237,7 +240,7 @@ section{
     top: 42%;
     left: 8%;
     color: #00ccff;
-    font-size: 8px;
+    font-size: 10px;
     line-height: 24px;
     text-transform: uppercase;
 }
@@ -262,8 +265,8 @@ section{
 .box .card .icons .btn{
     color: #d400d4;
     display: inline-block;
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 22px;
     padding: 3px 6px;
     background: #0e1538;
     border: none;
@@ -297,4 +300,11 @@ section{
         font-size: 18px;
         line-height: 28px;
     }
+}
+
+@media only screen and (max-width: 400px){
+    section{
+        padding: 10px;
+    }
+
 }
